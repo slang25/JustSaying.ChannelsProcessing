@@ -82,9 +82,9 @@ namespace JustSaying.ChannelsProcessing
         // Unused
         public int MaxWorkers => workerCount;
         
-        // AvailableWorkers is read after dispatching has finished, and any worker has finished.
+        // AvailableWorkers is read after dispatching has finished.
         // The read value will be used as an upper bound on how many messages to receive from the queue,
-        //   I think this should actually be the maxCapacity, as it would be less stuttery,
+        //   I think this should actually be a static configured value, as it would be less stuttery,
         public int AvailableWorkers => batchSize;
     }
 }

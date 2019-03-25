@@ -55,8 +55,11 @@ namespace JustSaying.ChannelsProcessing
             {
                 _ = Task.Run(async () =>
                 {
-                    var action = await channel.Reader.ReadAsync();
-                    await action();
+                    while (true)
+                    {
+                        var action = await channel.Reader.ReadAsync();
+                        await action();
+                    }
                 });
             }
         }

@@ -50,6 +50,15 @@ namespace JustSaying.ChannelsProcessing
             {
                 SingleWriter = mode == ChannelsMessageProcessingStrategyMode.Exclusive
             });
+
+            for (var i = 0; i < workerCount; i++)
+            {
+                _ = Task.Run(async () =>
+                {
+                    var action = await channel.Reader.ReadAsync();
+                    await action();
+                });
+            }
         }
 
         // Obsolete in 7.0.0

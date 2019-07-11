@@ -64,27 +64,16 @@ namespace JustSaying.ChannelsProcessing
             }
         }
 
-        // Obsolete in 7.0.0
-        public void StartWorker(Func<Task> action)
+        public async Task<bool> StartWorkerAsync(Func<Task> action, CancellationToken ct)
         {
-            channel.Writer.WriteAsync(action).GetAwaiter().GetResult();
-        }
-
-        // New in 7.0.0
-        public Task StartWorker(Func<Task> action, CancellationToken ct)
-        {
-            return channel.Writer.WriteAsync(action, ct).AsTask();
+            await channel.Writer.WriteAsync(action, ct);
+            return true;
         }
 
         // Eagerly fetch next message batch
-        public Task WaitForAvailableWorkers() => Task.CompletedTask;
+        public Task<int> WaitForAvailableWorkerAsync() => Task.FromResult(batchSize);
 
         // Unused
-        public int MaxWorkers => workerCount;
-        
-        // AvailableWorkers is read after dispatching has finished.
-        // The read value will be used as an upper bound on how many messages to receive from the queue,
-        //   I think this should actually be a static configured value, as it would be less stuttery,
-        public int AvailableWorkers => batchSize;
+        public int MaxConcurrency => workerCount;
     }
 }

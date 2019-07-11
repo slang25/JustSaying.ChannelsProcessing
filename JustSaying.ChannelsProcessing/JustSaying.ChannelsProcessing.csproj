@@ -2,17 +2,12 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
         <RestoreAdditionalProjectSources>
-            https://dotnet.myget.org/F/dotnet-core/api/v3/index.json
+            https://ci.appveyor.com/nuget/justsaying-jhto5gatphuv
         </RestoreAdditionalProjectSources>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="JustSaying" Version="6.0.1" />
+        <PackageReference Include="JustSaying" Version="7.0.0-alpha.0.108" />
         <PackageReference Include="System.Threading.Channels" Version="4.5.0" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-        <PackageReference Include="Microsoft.TargetingPack.NETFramework.v4.6.1" Version="1.0.1" ExcludeAssets="All" PrivateAssets="All" />
-    </ItemGroup>
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
-        <FrameworkPathOverride>$(NuGetPackageRoot)microsoft.targetingpack.netframework.v4.6.1/1.0.1/lib/net461/</FrameworkPathOverride>
-    </PropertyGroup>
 </Project>
